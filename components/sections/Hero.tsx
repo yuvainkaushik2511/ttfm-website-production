@@ -102,7 +102,7 @@ export default function Hero() {
       {/* Asymmetric frame: brand mark top-left, statement center-right, location
           bottom-left, scroll cue bottom-right — deliberately not centered. */}
       <div className="pointer-events-none absolute inset-0 z-10 p-6 md:p-12">
-        <div className="absolute left-6 top-6 flex items-center gap-3 md:left-12 md:top-12">
+        <div className="absolute left-6 top-24 flex items-center gap-3 md:left-12 md:top-32">
           <span ref={timecodeRef} className="font-body text-xs tabular-nums text-paper-dim/60">
             00:00
           </span>

@@ -12,6 +12,7 @@ import PanelCanvas from "@/components/visuals/PanelCanvas";
 import { panelVisuals } from "@/components/visuals/panelVisuals";
 import { verticalPanelTint } from "@/lib/verticalPalette";
 import { NOISE_SVG } from "@/lib/noise";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 const CreatorsScene = dynamic(() => import("@/components/three/CreatorsScene"), {
   ssr: false,
@@ -112,12 +113,8 @@ export default function GenerativePanel({ slug, code, title, descriptor, video }
       >
         {useVideo ? (
           inView && (
-            <video
+            <LazyVideo
               src={video}
-              autoPlay
-              muted
-              loop
-              playsInline
               className="absolute inset-0 h-full w-full object-cover"
             />
           )

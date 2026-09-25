@@ -6,6 +6,7 @@ import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { verticals } from "@/data/verticals";
 import SplitHeading from "@/components/ui/SplitHeading";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 type Layout = "full" | "split-left" | "split-right" | "compact";
 
@@ -32,12 +33,8 @@ const ITEMS: Item[] = [
 function WorkMedia({ item }: { item: Item }) {
   if (item.media.type === "video") {
     return (
-      <video
+      <LazyVideo
         src={item.media.src}
-        autoPlay
-        muted
-        loop
-        playsInline
         className="h-full w-full object-cover"
       />
     );

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 // A dedicated production-immersion beat: full-width crew footage behind
 // diverging "ON" / "SET." typography that pulls apart as the section scrolls
@@ -45,12 +46,8 @@ export default function OnSet() {
       className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-ink"
     >
       {!reducedMotion && (
-        <video
+        <LazyVideo
           src="/videos/crew-director-shoot.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
           className="absolute inset-0 h-full w-full object-cover opacity-45"
         />
       )}

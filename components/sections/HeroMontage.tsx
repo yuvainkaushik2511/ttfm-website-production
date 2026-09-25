@@ -28,10 +28,21 @@ const HeroMontage = forwardRef<HTMLDivElement, { className?: string }>(function 
 
     gsap.set(videos, { autoAlpha: 0 });
     gsap.set(videos[0], { autoAlpha: 1 });
-    videos.forEach((v) => v.play().catch(() => {}));
+    // Only the visible clip decodes; the rest stay paused (5 simultaneous
+    // decodes + the rest of the page's video was crashing laptop tabs).
+    videos[0].play().catch(() => {});
 
     let index = 0;
     let cancelled = false;
+    let onScreen = true;
+
+    const io = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      if (onScreen) videos[index].play().catch(() => {});
+      else videos.forEach((v) => v.pause());
+    });
+    const container = videos[0].parentElement;
+    if (container) io.observe(container);
 
     const advance = () => {
       if (cancelled) return;
@@ -39,7 +50,9 @@ const HeroMontage = forwardRef<HTMLDivElement, { className?: string }>(function 
       // Quick cross-cut (fast crossfade), not a hard pop — "occasional slow
       // shot, occasional flash" per the brief's varied-transition note comes
       // from the per-clip hold durations, not the cut style itself.
-      gsap.to(videos[index], { autoAlpha: 0, duration: 0.25, ease: "power1.in" });
+      const prev = videos[index];
+      if (onScreen) videos[next].play().catch(() => {});
+      gsap.to(prev, { autoAlpha: 0, duration: 0.25, ease: "power1.in", onComplete: () => prev.pause() });
       gsap.to(videos[next], { autoAlpha: 1, duration: 0.25, ease: "power1.out" });
       index = next;
       timeout = window.setTimeout(advance, CLIPS[index].holdMs);
@@ -50,6 +63,8 @@ const HeroMontage = forwardRef<HTMLDivElement, { className?: string }>(function 
     return () => {
       cancelled = true;
       window.clearTimeout(timeout);
+      io.disconnect();
+      videos.forEach((v) => v.pause());
     };
   }, []);
 
@@ -62,6 +77,7 @@ const HeroMontage = forwardRef<HTMLDivElement, { className?: string }>(function 
             videoRefs.current[i] = el;
           }}
           src={clip.src}
+          preload={i === 0 ? "auto" : "metadata"}
           muted
           loop
           playsInline

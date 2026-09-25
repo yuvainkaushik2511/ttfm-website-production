@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap, registerGsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import SplitHeading from "@/components/ui/SplitHeading";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 const TAGLINE = "One crew, start to finish. We don't hand off between vendors.";
 
@@ -136,12 +137,8 @@ export default function Pillars() {
                     style={{ opacity: i === 0 ? 1 : 0 }}
                   >
                     {stage.media.type === "video" ? (
-                      <video
+                      <LazyVideo
                         src={stage.media.src}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
                         className="h-full w-full object-cover"
                       />
                     ) : (

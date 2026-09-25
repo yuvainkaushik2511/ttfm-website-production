@@ -5,6 +5,7 @@ import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import SplitHeading from "@/components/ui/SplitHeading";
 import FrameLine from "@/components/ui/FrameLine";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 // TTFM's geographic identity beat — coordinates, then the city, then what it
 // means for the work. Real Mumbai skyline footage (free-license, see
@@ -39,13 +40,9 @@ export default function Mumbai() {
       className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden border-t border-line bg-ink py-32 text-center"
     >
       {!reducedMotion && (
-        <video
+        <LazyVideo
           aria-hidden
           src="/videos/mumbai-skyline.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
           className="absolute inset-0 h-full w-full object-cover opacity-30"
         />
       )}
