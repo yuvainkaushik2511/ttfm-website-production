@@ -11,8 +11,6 @@ import FrameLine from "@/components/ui/FrameLine";
 const CONTACT_ROWS = [
   { label: "Email", value: "connect@thetruefamemedia.com", href: "mailto:connect@thetruefamemedia.com" },
   { label: "WhatsApp", value: "+91 96712 13139", href: "https://wa.me/919671213139" },
-  { label: "Website", value: "thetruefamemedia.com", href: "https://thetruefamemedia.com" },
-  { label: "Instagram", value: "@thetruefamemedia", href: "https://instagram.com/thetruefamemedia" },
 ];
 
 const WHATSAPP_CTA_HREF =
@@ -99,7 +97,7 @@ export default function Contact() {
 
         <FrameLine className="mt-20 max-w-2xl" />
 
-        <div className="mt-10 grid w-full max-w-2xl grid-cols-2 gap-x-6 gap-y-8 text-left md:grid-cols-4">
+        <div className="mt-10 grid w-full max-w-2xl grid-cols-1 gap-x-12 gap-y-8 text-center sm:grid-cols-2">
           {CONTACT_ROWS.map((row) => (
             <a
               key={row.label}
@@ -110,7 +108,7 @@ export default function Contact() {
               className="group"
             >
               <span className="eyebrow block text-steel">{row.label}</span>
-              <span className="mt-2 block text-sm text-paper transition-colors group-hover:text-ember">
+              <span className="mt-3 block break-words text-base text-paper transition-colors group-hover:text-ember md:text-lg">
                 {row.value}
               </span>
             </a>

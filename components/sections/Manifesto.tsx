@@ -59,7 +59,7 @@ export default function Manifesto() {
       end: "bottom top",
       scrub: 0.6,
       onUpdate: (self) => {
-        gsap.set(imageRef.current, { yPercent: gsap.utils.interpolate(-6, 6, self.progress) });
+        gsap.set(imageRef.current, { yPercent: gsap.utils.interpolate(-3, 3, self.progress) });
       },
     });
 
@@ -79,24 +79,24 @@ export default function Manifesto() {
         <div className="grid gap-8 md:grid-cols-[12rem_1fr] md:gap-16">
           <span className="eyebrow">The Studio</span>
 
-          <div className="relative">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
             <SplitHeading
               as="h2"
               type="words"
-              className="font-display relative z-10 text-[11vw] font-semibold leading-[0.95] tracking-tight text-paper sm:text-6xl md:text-7xl lg:text-[5.5rem]"
+              className="font-display text-[11vw] font-semibold leading-[0.95] tracking-tight text-paper sm:text-6xl md:text-7xl lg:min-w-0 lg:flex-1 lg:text-[5rem]"
             >
               Stories built for the screen.
             </SplitHeading>
 
             <div
               ref={imageRef}
-              className="absolute -right-4 top-1/2 z-0 hidden aspect-[3/4] w-40 -translate-y-1/2 overflow-hidden rounded-sm sm:block md:-right-16 md:w-56 lg:w-64"
+              className="relative hidden aspect-[4/5] w-48 shrink-0 overflow-hidden rounded-sm sm:block md:w-56 lg:w-60"
             >
               <Image
                 src="/images/soundstage-crew.jpg"
                 alt=""
                 fill
-                sizes="(min-width: 768px) 14rem, 10rem"
+                sizes="(min-width: 1024px) 15rem, (min-width: 768px) 14rem, 12rem"
                 className="object-cover"
               />
             </div>

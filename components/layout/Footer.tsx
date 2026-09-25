@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useLenis } from "@/lib/lenis";
 
-const EMAIL = "connect@thetruefamemedia.com";
-const WHATSAPP_HREF = "https://wa.me/919671213139";
 const YOUTUBE_HREF = "https://www.youtube.com/@bhagwatkirtan";
 
 const LEGAL_LINKS = [
@@ -19,22 +16,12 @@ export default function Footer() {
   const lenisRef = useLenis();
   const pathname = usePathname();
   const isCreators = pathname?.startsWith("/creators") ?? false;
-  const [copied, setCopied] = useState(false);
 
   const backToTop = () =>
     lenisRef?.current
       ? lenisRef.current.scrollTo(0, { duration: 1.4 })
       : window.scrollTo(0, 0);
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {
-      // Clipboard API unavailable — the mailto link below still works.
-    }
-  };
 
   // The creators route's own last section (CreatorsFinale) is the "immersive
   // final scene" the spec asks for — this shared, site-wide Footer stays a quiet
@@ -44,7 +31,7 @@ export default function Footer() {
     return (
       <footer className="border-t border-line">
         <div className="container-px flex flex-col gap-3 border-t border-line py-6 text-xs text-steel md:flex-row md:items-center md:justify-between">
-          <span>&copy; {new Date().getFullYear()} TTFM Production &middot; A unit of The True Fame Media. All rights reserved.</span>
+          <span>&copy; 2022&ndash;{new Date().getFullYear()} TTFM Production &middot; A unit of The True Fame Media. All rights reserved.</span>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             {LEGAL_LINKS.map((link) =>
               link.external ? (
@@ -108,18 +95,8 @@ export default function Footer() {
         </div>
 
         <div>
-          <span className="eyebrow text-steel">Connect</span>
+          <span className="eyebrow text-steel">Follow</span>
           <div className="mt-4 flex flex-col gap-2 text-sm text-paper-dim">
-            <button
-              data-cursor="link"
-              onClick={copyEmail}
-              className="text-left hover:text-ember"
-            >
-              {copied ? "Copied" : EMAIL}
-            </button>
-            <a data-cursor="link" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="hover:text-ember">
-              WhatsApp +91 96712 13139
-            </a>
             <a
               data-cursor="link"
               href="https://instagram.com/thetruefamemedia"
@@ -127,7 +104,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-ember"
             >
-              Instagram @thetruefamemedia
+              Instagram
             </a>
             <a data-cursor="link" href={YOUTUBE_HREF} target="_blank" rel="noopener noreferrer" className="hover:text-ember">
               YouTube &mdash; Bhagwat Kirtan
@@ -139,7 +116,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="container-px flex flex-col gap-3 border-t border-line py-6 text-xs text-steel md:flex-row md:items-center md:justify-between">
-        <span>&copy; {new Date().getFullYear()} TTFM Production &middot; A unit of The True Fame Media. All rights reserved.</span>
+        <span>&copy; 2022&ndash;{new Date().getFullYear()} TTFM Production &middot; A unit of The True Fame Media. All rights reserved.</span>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           {LEGAL_LINKS.map((link) =>
             link.external ? (

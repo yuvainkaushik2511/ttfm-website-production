@@ -72,9 +72,13 @@ body {
   color: var(--color-ink);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* In @layer base so Tailwind utilities (text-ink, hover:text-ember…) can override link colour.
+   Unlayered, this rule beat every utility and made the "Start a Project" button text invisible. */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 /* Custom cursor: hide native cursor only on fine-pointer, non-reduced-motion devices */
