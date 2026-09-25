@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0a0a0b;
+  --ink-raised: #121214;
+  --paper: #f3f1ea;
+  --paper-dim: #c9c7bf;
+  /* TTFM's one signature accent: a deep, muted cinematic crimson — not the
+     amber/gold "ember" name suggests anymore. Kept the token name (threaded
+     through ~20 files and the per-craft palette generator in
+     lib/verticalPalette.ts) but retinted the value, per the brief's "one
+     accent, used sparingly" rule. */
+  --ember: #7a1f2a;
+  --ember-bright: #b23a45;
+  --steel: #8a8a86;
+  --hairline: rgba(243, 241, 234, 0.12);
+
+  --display-stack: var(--font-bricolage), "Arial Narrow", sans-serif;
+  --body-stack: var(--font-inter), Arial, sans-serif;
+  --editorial-stack: var(--font-instrument), Georgia, serif;
+  /* Primary cinematic display face: upright Instrument Serif, used for hero
+     statements, manifesto and major headlines. --editorial-stack (its italic
+     twin, above) stays reserved for the smaller supporting taglines. */
+  --headline-stack: var(--font-instrument), Georgia, serif;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-raised: var(--ink-raised);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-ember: var(--ember);
+  --color-ember-bright: var(--ember-bright);
+  --color-steel: var(--steel);
+  --color-line: var(--hairline);
+
+  --font-display: var(--display-stack);
+  --font-body: var(--body-stack);
+  --font-editorial: var(--editorial-stack);
+  --font-headline: var(--headline-stack);
+
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-swift: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-ink);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-steel) transparent;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-ink);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom cursor: hide native cursor only on fine-pointer, non-reduced-motion devices */
+@media (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Preloader scroll lock — referenced by class from Preloader.tsx */
+html.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Brand ecosystem floating badges (BrandEcosystem.tsx) — a plain CSS keyframe on
+   the `translate` property (not `transform`, which the badge's inline rotate
+   style already occupies) so it stays independent of GSAP's magnetic-pointer
+   tween on the same element. Respects the global prefers-reduced-motion block
+   below automatically. */
+@keyframes brand-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+.brand-float {
+  animation-name: brand-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+  font-style: italic;
+}
+
+.font-headline {
+  font-family: var(--font-headline);
+  font-style: normal;
+}
+
+.container-px {
+  padding-left: clamp(1.25rem, 5vw, 4rem);
+  padding-right: clamp(1.25rem, 5vw, 4rem);
+}
+
+.line-hairline {
+  background: var(--color-line);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  transform: translateY(-140%);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0;
+  transition: transform 0.25s var(--ease-swift);
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
